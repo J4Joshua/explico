@@ -5,10 +5,10 @@
     {
       "id": "0-0",
       "box": [
-        219,
+        78,
         0,
-        2870,
-        285
+        1643,
+        159
       ],
       "isolated": false,
       "col_number": 1,
@@ -16,223 +16,103 @@
         {
           "position": [
             [
-              21.0,
-              30.0
+              30.0,
+              33.0
             ],
             [
-              1000.0624389648438,
-              30.0
+              103.0,
+              33.0
             ],
             [
-              1000.0624389648438,
-              140.0
+              103.0,
+              83.0
             ],
             [
-              21.0,
-              140.0
+              30.0,
+              83.0
             ]
           ],
           "type": "text",
           "line_number": 0,
-          "text": "Two rectangular mats, each",
-          "score": 0.6283583641052246
-        },
-        {
-          "type": "embedding",
-          "text": "6",
-          "position": [
-            [
-              1000.0624389648438,
-              51.39393997192383
-            ],
-            [
-              1060.458740234375,
-              51.39393997192383
-            ],
-            [
-              1060.458740234375,
-              123.75996398925781
-            ],
-            [
-              1000.0624389648438,
-              123.75996398925781
-            ]
-          ],
-          "score": 0.9766116142272949,
-          "line_number": 0
+          "text": "15",
+          "score": 0.9985242486000061
         },
         {
           "position": [
             [
-              1060.0,
+              151.0,
               30.0
             ],
             [
-              1247.0,
+              1580.0,
               30.0
             ],
             [
-              1247.0,
-              140.0
+              1580.0,
+              87.0
             ],
             [
-              1060.0,
-              140.0
+              151.0,
+              87.0
             ]
           ],
           "type": "text",
           "line_number": 0,
-          "text": "m by",
-          "score": 0.9019336700439453
-        },
-        {
-          "type": "embedding",
-          "text": "4 ~",
-          "position": [
-            [
-              1246.24951171875,
-              52.299110412597656
-            ],
-            [
-              1303.8203125,
-              52.299110412597656
-            ],
-            [
-              1303.8203125,
-              124.18460845947266
-            ],
-            [
-              1246.24951171875,
-              124.18460845947266
-            ]
-          ],
-          "score": 0.9068658351898193,
-          "line_number": 0
+          "text": "X and Y are two rectangular containers. The base area of X is 30 cm? and the",
+          "score": 0.5759987831115723
         },
         {
           "position": [
             [
-              1303.0,
-              30.0
+              153.0,
+              88.0
             ],
             [
-              2269.0,
-              30.0
+              1579.0,
+              88.0
             ],
             [
-              2269.0,
-              140.0
+              1579.0,
+              135.0
             ],
             [
-              1303.0,
-              140.0
-            ]
-          ],
-          "type": "text",
-          "line_number": 0,
-          "text": "m, are placed on the floor of",
-          "score": 0.6417129039764404
-        },
-        {
-          "type": "embedding",
-          "text": "^\\mathrm{a}",
-          "position": [
-            [
-              2268.60009765625,
-              50.01866912841797
-            ],
-            [
-              2320.932861328125,
-              50.01866912841797
-            ],
-            [
-              2320.932861328125,
-              122.96981048583984
-            ],
-            [
-              2268.60009765625,
-              122.96981048583984
-            ]
-          ],
-          "score": 0.8369849920272827,
-          "line_number": 0
-        },
-        {
-          "position": [
-            [
-              2320.0,
-              30.0
-            ],
-            [
-              2710.0,
-              30.0
-            ],
-            [
-              2710.0,
-              140.0
-            ],
-            [
-              2320.0,
-              140.0
-            ]
-          ],
-          "type": "text",
-          "line_number": 0,
-          "text": "rectangula",
-          "score": 0.7913991212844849
-        },
-        {
-          "position": [
-            [
-              17.0,
-              134.0
-            ],
-            [
-              2710.0,
-              134.0
-            ],
-            [
-              2710.0,
-              230.0
-            ],
-            [
-              17.0,
-              230.0
+              153.0,
+              135.0
             ]
           ],
           "type": "text",
           "line_number": 1,
-          "text": "room as shown. The mats overlap. The area of the floor covered by the overla",
-          "score": 0.5982635021209717
+          "text": "base of Y has dimensions as shown. X contained 780 cm3 of water and Y was",
+          "score": 0.49171000719070435
         },
         {
           "position": [
             [
-              56.0,
-              230.0
+              140.0,
+              137.0
             ],
             [
-              365.0,
-              230.0
+              291.0,
+              137.0
             ],
             [
-              365.0,
-              312.0
+              291.0,
+              189.0
             ],
             [
-              56.0,
-              312.0
+              140.0,
+              189.0
             ]
           ],
           "type": "text",
           "line_number": 2,
-          "text": "is 5.2 m3.",
-          "score": 0.3948012888431549
+          "text": "empty.",
+          "score": 0.7076236605644226
         }
       ],
       "type": "TEXT",
-      "score": 0.7418812546465132,
-      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x16b56a6c0>",
+      "score": 0.6934641748666763,
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
       "kwargs": {
         "embed_sep": [
           " $",
@@ -248,78 +128,22 @@
         "text_contain_formula": true,
         "resized_shape": 768
       },
-      "text": "Two rectangular mats, each $6$ m by $4 ~$ m, are placed on the floor of $^\\mathrm{a}$ rectangula room as shown. The mats overlap. The area of the floor covered by the overla is 5.2 m3.\n"
+      "text": "15 X and Y are two rectangular containers. The base area of X is 30 cm? and the base of Y has dimensions as shown. X contained 780 cm3 of water and Y was empty.\n"
     },
     {
       "id": "0-1",
       "box": [
-        238,
-        364,
-        1955,
-        457
-      ],
-      "isolated": false,
-      "col_number": 1,
-      "meta": [
-        {
-          "position": [
-            [
-              24.0,
-              17.0
-            ],
-            [
-              1728.0,
-              17.0
-            ],
-            [
-              1728.0,
-              145.0
-            ],
-            [
-              24.0,
-              145.0
-            ]
-          ],
-          "type": "text",
-          "line_number": 0,
-          "text": "Find the rea of the for not covered by the mats",
-          "score": 0.4570712149143219
-        }
-      ],
-      "type": "TEXT",
-      "score": 0.4570712149143219,
-      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x16b56a6c0>",
-      "kwargs": {
-        "embed_sep": [
-          " $",
-          "$ "
-        ],
-        "isolated_sep": [
-          "$$\n",
-          "\n$$"
-        ],
-        "line_sep": "\n",
-        "auto_line_break": true,
-        "title_contain_formula": false,
-        "text_contain_formula": true,
-        "resized_shape": 768
-      },
-      "text": "Find the rea of the for not covered by the mats"
-    },
-    {
-      "id": "0-2",
-      "box": [
-        1775,
-        369,
-        2897,
-        1519
+        370,
+        181,
+        1609,
+        944
       ],
       "isolated": false,
       "col_number": 1,
       "meta": null,
       "type": "FIGURE",
       "score": 1.0,
-      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x16b56a6c0>",
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
       "kwargs": {
         "embed_sep": [
           " $",
@@ -338,22 +162,212 @@
       "text": ""
     },
     {
-      "id": "0-3",
+      "id": "0-2",
       "box": [
-        424,
-        550,
-        1163,
-        1240
+        181,
+        951,
+        1638,
+        1110
       ],
-      "isolated": true,
+      "isolated": false,
       "col_number": 1,
-      "meta": {
-        "text": "\\begin{matrix} A_{m a}=L \\times8 \\\\ 5 \\cdot2 \\div4=1. 3 \\\\ 6-1 \\cdot3=4. 7 \\\\ 4. 7 \\times2=\\end{matrix}",
-        "score": 0.9102025032043457
-      },
-      "type": "FORMULA",
-      "score": 0.9102025032043457,
-      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x16b56a6c0>",
+      "meta": [
+        {
+          "position": [
+            [
+              31.0,
+              26.0
+            ],
+            [
+              117.0,
+              26.0
+            ],
+            [
+              117.0,
+              83.0
+            ],
+            [
+              31.0,
+              83.0
+            ]
+          ],
+          "type": "text",
+          "line_number": 0,
+          "text": "(b)",
+          "score": 0.8742486238479614
+        },
+        {
+          "position": [
+            [
+              178.0,
+              28.0
+            ],
+            [
+              870.6857299804688,
+              28.0
+            ],
+            [
+              870.6857299804688,
+              79.0
+            ],
+            [
+              178.0,
+              79.0
+            ]
+          ],
+          "type": "text",
+          "line_number": 0,
+          "text": "Sam poured some water from X into",
+          "score": 0.6366819143295288
+        },
+        {
+          "type": "embedding",
+          "text": "\\mathsf{Y}",
+          "position": [
+            [
+              870.6857299804688,
+              34.20219421386719
+            ],
+            [
+              910.9885864257812,
+              34.20219421386719
+            ],
+            [
+              910.9885864257812,
+              80.26168823242188
+            ],
+            [
+              870.6857299804688,
+              80.26168823242188
+            ]
+          ],
+          "score": 0.9779402017593384,
+          "line_number": 0
+        },
+        {
+          "position": [
+            [
+              910.9885864257812,
+              31.0
+            ],
+            [
+              1473.0,
+              31.0
+            ],
+            [
+              1473.0,
+              85.0
+            ],
+            [
+              910.9885864257812,
+              85.0
+            ]
+          ],
+          "type": "text",
+          "line_number": 0,
+          "text": "without spilling. After that, the",
+          "score": 0.6322316527366638
+        },
+        {
+          "position": [
+            [
+              175.0,
+              81.0
+            ],
+            [
+              686.95166015625,
+              81.0
+            ],
+            [
+              686.95166015625,
+              127.0
+            ],
+            [
+              175.0,
+              127.0
+            ]
+          ],
+          "type": "text",
+          "line_number": 1,
+          "text": "height of the water level of",
+          "score": 0.576988160610199
+        },
+        {
+          "type": "embedding",
+          "text": "\\mathsf{X}",
+          "position": [
+            [
+              686.95166015625,
+              83.42296600341797
+            ],
+            [
+              726.1929321289062,
+              83.42296600341797
+            ],
+            [
+              726.1929321289062,
+              126.49861145019531
+            ],
+            [
+              686.95166015625,
+              126.49861145019531
+            ]
+          ],
+          "score": 0.9870157837867737,
+          "line_number": 1
+        },
+        {
+          "position": [
+            [
+              726.1929321289062,
+              82.0
+            ],
+            [
+              1472.0,
+              82.0
+            ],
+            [
+              1472.0,
+              130.0
+            ],
+            [
+              726.1929321289062,
+              130.0
+            ]
+          ],
+          "type": "text",
+          "line_number": 1,
+          "text": "was the same as that of Y. How much",
+          "score": 0.5900369882583618
+        },
+        {
+          "position": [
+            [
+              174.0,
+              125.0
+            ],
+            [
+              673.0,
+              125.0
+            ],
+            [
+              673.0,
+              189.0
+            ],
+            [
+              174.0,
+              189.0
+            ]
+          ],
+          "type": "text",
+          "line_number": 2,
+          "text": "water did Sam pour into Y?",
+          "score": 0.4718414545059204
+        }
+      ],
+      "type": "TEXT",
+      "score": 0.7183730974793434,
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
       "kwargs": {
         "embed_sep": [
           " $",
@@ -369,10 +383,137 @@
         "text_contain_formula": true,
         "resized_shape": 768
       },
-      "text": "\\begin{matrix} A_{m a}=L \\times8 \\\\ 5 \\cdot2 \\div4=1. 3 \\\\ 6-1 \\cdot3=4. 7 \\\\ 4. 7 \\times2=\\end{matrix}\n"
+      "text": "(b) Sam poured some water from X into $\\mathsf{Y}$ without spilling. After that, the height of the water level of $\\mathsf{X}$ was the same as that of Y. How much water did Sam pour into Y?\n"
+    },
+    {
+      "id": "0-3",
+      "box": [
+        171,
+        1398,
+        1030,
+        1597
+      ],
+      "isolated": true,
+      "col_number": 1,
+      "meta": {
+        "text": "\\begin{matrix} ( b ) 3 0+2 7 0=3 0 0 c m^{2} \\\\ 7 8 0 \\div3 0 0=2 \\cdot6 c m \\end{matrix}",
+        "score": 0.9649868011474609
+      },
+      "type": "FORMULA",
+      "score": 0.9649868011474609,
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
+      "kwargs": {
+        "embed_sep": [
+          " $",
+          "$ "
+        ],
+        "isolated_sep": [
+          "$$\n",
+          "\n$$"
+        ],
+        "line_sep": "\n",
+        "auto_line_break": true,
+        "title_contain_formula": false,
+        "text_contain_formula": true,
+        "resized_shape": 768
+      },
+      "text": "\\begin{matrix} ( b ) 3 0+2 7 0=3 0 0 c m^{2} \\\\ 7 8 0 \\div3 0 0=2 \\cdot6 c m \\end{matrix}\n"
+    },
+    {
+      "id": "0-4-remaining",
+      "box": [
+        1651,
+        10,
+        1653,
+        114
+      ],
+      "isolated": false,
+      "col_number": 1,
+      "meta": null,
+      "type": "TEXT",
+      "score": 0.8133367300033569,
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
+      "kwargs": {
+        "embed_sep": [
+          " $",
+          "$ "
+        ],
+        "isolated_sep": [
+          "$$\n",
+          "\n$$"
+        ],
+        "line_sep": "\n",
+        "auto_line_break": true,
+        "title_contain_formula": false,
+        "text_contain_formula": true,
+        "resized_shape": 768
+      },
+      "text": "Do not write in this space"
+    },
+    {
+      "id": "0-5-remaining",
+      "box": [
+        195,
+        847,
+        374,
+        925
+      ],
+      "isolated": false,
+      "col_number": 1,
+      "meta": null,
+      "type": "TEXT",
+      "score": 0.7401391863822937,
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
+      "kwargs": {
+        "embed_sep": [
+          " $",
+          "$ "
+        ],
+        "isolated_sep": [
+          "$$\n",
+          "\n$$"
+        ],
+        "line_sep": "\n",
+        "auto_line_break": true,
+        "title_contain_formula": false,
+        "text_contain_formula": true,
+        "resized_shape": 768
+      },
+      "text": "(a)W"
+    },
+    {
+      "id": "0-6-remaining",
+      "box": [
+        202,
+        1145,
+        1050,
+        1404
+      ],
+      "isolated": false,
+      "col_number": 1,
+      "meta": null,
+      "type": "TEXT",
+      "score": 0.944853663444519,
+      "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
+      "kwargs": {
+        "embed_sep": [
+          " $",
+          "$ "
+        ],
+        "isolated_sep": [
+          "$$\n",
+          "\n$$"
+        ],
+        "line_sep": "\n",
+        "auto_line_break": true,
+        "title_contain_formula": false,
+        "text_contain_formula": true,
+        "resized_shape": 768
+      },
+      "text": "\n$$\n\\begin{matrix} 3 0 \\times9=2 7 0 c m^{2} \\\\ 7 8 0 \\div3 0=2 6 c m \\end{matrix}\n$$\n$$\n\\frac{V_{o l}} {C_{o m b}-B, A.}\n$$\n"
     }
   ],
-  "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x16b56a6c0>",
+  "spellchecker": "<spellchecker.spellchecker.SpellChecker object at 0x162a35840>",
   "config": {
     "embed_sep": [
       " $",

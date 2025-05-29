@@ -50,7 +50,7 @@ def serialize_page(page):
     return data
 
 OCR = pix2text.Pix2Text()
-pages = OCR.recognize_page("explicomathexample.png")
+pages = OCR.recognize_page("matheg2.png")
 
 # If output is a list of Page objects
 if isinstance(pages, list):
