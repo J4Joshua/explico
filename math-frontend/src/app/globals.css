@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a1a1a1;
+  border-radius: 3px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "calt" 1, "case" 1, "ss01" 1, "ss02" 1;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .container-padding {
+    @apply px-4 md:px-10 lg:px-20 xl:px-28;
+  }
+
+  .work-item {
+    @apply relative overflow-hidden rounded-sm bg-forai-light;
+  }
+
+  .work-item-image {
+    @apply w-full h-auto aspect-square object-cover transition-all duration-700 ease-in-out;
+  }
+
+  .work-item:hover .work-item-image {
+    @apply scale-105;
+  }
+
+  .work-item-title {
+    @apply absolute bottom-4 left-4 text-lg font-medium;
+  }
+
+  .testimonial-card {
+    @apply bg-[#F2F2F2] p-6 rounded-sm h-full;
+  }
+
+  .logo-grid {
+    @apply grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mt-10;
+  }
+
+  .logo-item {
+    @apply flex items-center justify-center p-4 bg-[#F2F2F2] rounded-sm aspect-square;
+  }
+}
+
+@layer utilities {
+  .text-hero {
+    @apply text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-medium tracking-tighter;
+  }
+
+  .text-section-title {
+    @apply text-3xl sm:text-4xl font-medium tracking-tight;
+  }
+}
