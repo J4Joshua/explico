@@ -3,7 +3,7 @@ import numpy as np
 import logging
 import sys
 import base64
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, UploadFile, File, Form, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from openai import AsyncOpenAI
@@ -30,9 +30,30 @@ logger = logging.getLogger(__name__)
 
 # Test logging immediately
 logger.info("Starting FastAPI application...")
+from google.cloud import vision
+import uvicorn
+import os
+import difflib
+from collections import defaultdict
+
+# Configure logging properly
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ],
+    force=True
+)
+
+# Create logger for this module
+logger = logging.getLogger(__name__)
+
+# Test logging immediately
+logger.info("Starting FastAPI application...")
 
 app = FastAPI()
-client = AsyncOpenAI(api_key="xxxx")
+client = AsyncOpenAI(api_key="xx-xxx")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/isaactan/Downloads/cloudvisionkey.json"
 gclient = vision.ImageAnnotatorClient()
 
@@ -43,6 +64,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=origins,
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
@@ -66,7 +88,7 @@ def detect_text_google_vision(image_path):
 
     image = vision.Image(content=content)
     response = gclient.text_detection(image=image)
-    
+    logger.info(f"Google Vision extracted response: {response}")
     if response.error.message:
         raise Exception(
             f"Google Vision API error: {response.error.message}\n"
@@ -80,9 +102,9 @@ def detect_text_google_vision(image_path):
         logger.warning("No text detected by Google Vision")
         return "", []
     
-    # First annotation contains all text
+ 
     full_text = texts[0].description
-    logger.info(f"Google Vision extracted text: {full_text[:100]}...")
+
     
     # Get individual words with their boundaries (skip first annotation which is full text)
     words_with_bounds = []
@@ -98,7 +120,7 @@ def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-def fuzzy_match(gpt_lines, ocr_lines, threshold=0.7):
+def fuzzy_match(gpt_lines, ocr_lines, threshold=0.6):
     """
     Fuzzy match GPT lines against OCR lines with better matching logic
     """
@@ -112,6 +134,11 @@ def fuzzy_match(gpt_lines, ocr_lines, threshold=0.7):
         if exact_matches:
             matches.append((gpt_line, exact_matches[0]))
             continue
+            
+        # Try fuzzy matching
+        best_match = difflib.get_close_matches(gpt_line, ocr_lines, n=1, cutoff=threshold)
+        if best_match:
+            matches.append((gpt_line, best_match[0]))
             
         # Try fuzzy matching
         best_match = difflib.get_close_matches(gpt_line, ocr_lines, n=1, cutoff=threshold)
@@ -209,8 +236,6 @@ def group_words_by_line(words_with_bounds, y_threshold=15, x_threshold=100):
                 # Check X proximity - word should be reasonably close to existing line's X range
                 line_min_x, line_max_x = get_x_range(line)
                 
-                # Allow word if it's within threshold of the line's X range
-                # or if it extends the line naturally (not too far from either end)
                 word_too_far_left = word_middle_x < line_min_x - x_threshold
                 word_too_far_right = word_middle_x > line_max_x + x_threshold
                 
@@ -240,12 +265,18 @@ def group_words_by_line(words_with_bounds, y_threshold=15, x_threshold=100):
     return result_lines
 
 @app.post("/solve/")
-async def extract_and_solve(file: UploadFile = File(...)):
+async def extract_and_solve(
+    request: Request,
+    file: UploadFile = File(None),
+    marking_scheme: str = Form(None)
+):
+    form_data = await request.form()
+   
     logger.info(f"=== NEW REQUEST ===")
     logger.info(f"Uploaded File: {file.filename}")
     logger.info(f"File content type: {file.content_type}")
-    
-    # Save uploaded file
+    form_data = await request.form()
+    logger.info(f"Received form data: {dict(form_data)}")
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp:
         shutil.copyfileobj(file.file, tmp)
         tmp_path = tmp.name
@@ -255,22 +286,26 @@ async def extract_and_solve(file: UploadFile = File(...)):
     try:
         # Use Google Vision OCR - get both full text and word boundaries
         extracted_text, words_with_bounds = detect_text_google_vision(tmp_path)
-        
+        ocr_lines_data = group_words_by_line(words_with_bounds)
+        ocr_lines = [line_data['text'] for line_data in ocr_lines_data]
+        logger.info(f"OCR grouped into {len(ocr_lines)} lines:")
         if not extracted_text:
             logger.warning("No text extracted from image")
         
-        # Load prompt from file
+       
         system_prompt = load_prompt()
-        
+        if marking_scheme:
+            system_prompt = f"\n\Marking Scheme Instructions:\n{marking_scheme}" + system_prompt
+
         # Encode image to base64 for OpenAI
         base64_image = encode_image_to_base64(tmp_path)
         
-        logger.info(f"Extracted Text: {extracted_text}")
+
         logger.info("Calling OpenAI API with image and text...")
-        
+        logger.info(ocr_lines)
         # Call OpenAI with both text and image
         response = await client.chat.completions.create(
-            model="gpt-4o",  # Using gpt-4o for vision capabilities
+            model="gpt-4o", 
             messages=[
                 {"role": "system", "content": system_prompt},
                 {
@@ -278,7 +313,7 @@ async def extract_and_solve(file: UploadFile = File(...)):
                     "content": [
                         {
                             "type": "text",
-                            "text": f"Here is the text extracted from the image: {extracted_text}\n\nPlease solve the problem shown in both the text and the image."
+                            "text": f"Here is the ocr extracted lines: {ocr_lines}."
                         },
                         {
                             "type": "image_url",
@@ -293,16 +328,16 @@ async def extract_and_solve(file: UploadFile = File(...)):
         answer = response.choices[0].message.content.strip()
         logger.info(f"OpenAI response received: {answer}")
         
-        # Try to parse as JSON, handling markdown code blocks
+       
         try:
-            # Remove markdown code block formatting if present
+        
             json_str = answer.strip()
             if json_str.startswith('```json'):
-                json_str = json_str[7:]  # Remove ```json
+                json_str = json_str[7:] 
             if json_str.startswith('```'):
-                json_str = json_str[3:]   # Remove ``` 
+                json_str = json_str[3:]  
             if json_str.endswith('```'):
-                json_str = json_str[:-3]  # Remove trailing ```
+                json_str = json_str[:-3]  
             json_str = json_str.strip()
             
             gpt_output = json.loads(json_str)
@@ -313,44 +348,33 @@ async def extract_and_solve(file: UploadFile = File(...)):
         except json.JSONDecodeError as e:
             logger.info(f"GPT response is not valid JSON format: {e}")
             logger.info("Treating as plain text")
-            # If not JSON, split the answer into lines for comparison
+          
             method_marks = [line.strip() for line in answer.split('\n') if line.strip()]
             answer_mark = ""
         
-        # Group OCR words into lines
-        ocr_lines_data = group_words_by_line(words_with_bounds)
-        ocr_lines = [line_data['text'] for line_data in ocr_lines_data]
-        logger.info(f"OCR grouped into {len(ocr_lines)} lines:")
-        for i, line_data in enumerate(ocr_lines_data):
-            logger.info(f"  Line {i}: '{line_data['text'][:50]}...' (bounds: {line_data['bounds'][:2]}...)")
-        
-        # Perform fuzzy matching
-        all_gpt_lines = method_marks + ([answer_mark] if answer_mark else [])
-        fuzzy_matches = fuzzy_match(all_gpt_lines, ocr_lines)
-        
-        # Enhanced matching results with boundary information
+        all_marks = method_marks.copy()
+        if answer_mark:
+            all_marks.append(answer_mark)
+
         matches_with_bounds = []
-        for gpt_line, matched_ocr_line in fuzzy_matches:
-            matched_bounds = None
-            if matched_ocr_line:
-                # Find the bounds for the matched line
-                for line_data in ocr_lines_data:
-                    if line_data['text'] == matched_ocr_line:
-                        matched_bounds = line_data['bounds']
-                        break
+
+        for mark in all_marks:
+            line_num = mark.get('line_number')
+            if line_num is not None and line_num < len(ocr_lines_data):
+                matched_line = ocr_lines_data[line_num]
+                matches_with_bounds.append({
+                    'type': 'method_mark' if mark in method_marks else 'answer_mark',
+                    'line_number': line_num,
+                    'text': matched_line['text'],
+                    'bounds': matched_line['bounds']
+                })
+            else:
+                logger.warning(f"Line number {line_num} out of range for OCR lines")
+
             
-            matches_with_bounds.append({
-                'gpt_line': gpt_line,
-                'matched_ocr_line': matched_ocr_line,
-                'bounds': matched_bounds
-            })
-        logger.info(matches_with_bounds)
-        logger.info("Fuzzy Matches between GPT output and OCR lines:")
-        for match in matches_with_bounds:
-            bounds_info = f" (bounds: {match['bounds'][:2]}...)" if match['bounds'] else ""
-            logger.info(f"GPT: '{match['gpt_line']}'  ==>  OCR: '{match['matched_ocr_line']}'{bounds_info}")
-        
+
     except Exception as e:
+        logger.error(f"Error during processing: {str(e)}", exc_info=True)
         logger.error(f"Error during processing: {str(e)}", exc_info=True)
         return JSONResponse(status_code=500, content={"error": str(e)})
     
@@ -361,12 +385,13 @@ async def extract_and_solve(file: UploadFile = File(...)):
         except Exception as e:
             logger.warning(f"Failed to clean up temporary file: {e}")
     
-    logger.info("Request completed successfully")
+    logger.info(f"Request completed successfull. fuz")
     return {
         "question": extracted_text,
+        "question": extracted_text,
         "answer": answer,
-        "fuzzy_matches": matches_with_bounds,
-        "ocr_lines": ocr_lines_data
+        "ocr_lines": ocr_lines_data,
+        "fuzzy_matches": matches_with_bounds 
     }
 
 @app.on_event("startup")
