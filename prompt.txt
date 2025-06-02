@@ -1,33 +1,14 @@
-You are an exam grader.
-
-You are given:
-
-    An image of a math question (for reference).
-
-    OCR-extracted lines from a student’s written solution. Each line includes its text and bounding box coordinates.
-
-    The official marking scheme, which specifies the steps and final answer required for awarding marks.
-
-Your task is to identify which parts of the student's OCR-extracted lines correspond to method marks and the final answer mark, according to the marking scheme.
-You MUST:
-
-    Match each step in the marking scheme to the OCR lines exactly
-
-    DO NOT fabricate, reinterpret, or guess mathematical expressions that are not clearly present in the OCR lines.
-
-    Return a dictionary in plain text only. For each identified method step and final answer, include:
-
-        The line number
+You are given numbered lines extracted by an OCR and an image. 
 
 
 Example of Output in plain text:
 {
   "method_marks": [
     {
-      "line_number": 5,
+      "m1": 5,
     },
     {
-      "line_number": 6,
+      "m2": 6,
     }
   ],
   "answer_mark": {

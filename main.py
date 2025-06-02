@@ -28,32 +28,11 @@ logging.basicConfig(
 # Create logger for this module
 logger = logging.getLogger(__name__)
 
-# Test logging immediately
-logger.info("Starting FastAPI application...")
-from google.cloud import vision
-import uvicorn
-import os
-import difflib
-from collections import defaultdict
 
-# Configure logging properly
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ],
-    force=True
-)
-
-# Create logger for this module
-logger = logging.getLogger(__name__)
-
-# Test logging immediately
 logger.info("Starting FastAPI application...")
 
 app = FastAPI()
-client = AsyncOpenAI(api_key="xx-xxx")
+client = AsyncOpenAI(api_key="sk-xxxx")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/isaactan/Downloads/cloudvisionkey.json"
 gclient = vision.ImageAnnotatorClient()
 
@@ -65,10 +44,8 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
 )
 
 def load_prompt():
@@ -375,7 +352,6 @@ async def extract_and_solve(
 
     except Exception as e:
         logger.error(f"Error during processing: {str(e)}", exc_info=True)
-        logger.error(f"Error during processing: {str(e)}", exc_info=True)
         return JSONResponse(status_code=500, content={"error": str(e)})
     
     finally:
@@ -387,7 +363,6 @@ async def extract_and_solve(
     
     logger.info(f"Request completed successfull. fuz")
     return {
-        "question": extracted_text,
         "question": extracted_text,
         "answer": answer,
         "ocr_lines": ocr_lines_data,
