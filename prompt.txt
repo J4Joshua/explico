@@ -5,10 +5,10 @@ Example of Output in plain text:
 {
   "method_marks": [
     {
-      "m1": 5,
+      "line_number": 5,
     },
     {
-      "m2": 6,
+      "line_number": 6,
     }
   ],
   "answer_mark": {

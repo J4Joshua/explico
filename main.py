@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 logger.info("Starting FastAPI application...")
 
 app = FastAPI()
-client = AsyncOpenAI(api_key="sk-xxxx")
+client = AsyncOpenAI(api_key="sk-xxx")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/isaactan/Downloads/cloudvisionkey.json"
 gclient = vision.ImageAnnotatorClient()
 
